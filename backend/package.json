@@ -1,0 +1,38 @@
+{
+  "name": "scoder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx env-cmd -f ./env/.env.development node dist/main/server.js",
+    "build": "rimraf dist && tsc",
+    "dev": "npx env-cmd -f ./env/.env.development ts-node-dev --respawn src/main/server.ts",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
+    "homol": "npx env-cmd -f ./env/.env.homol node dist/main/server-homol.js",
+    "deploy": "npx env-cmd -f ./env/.env.prod node dist/main/server-prod.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.24.2",
+    "zod-openapi": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+    "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^29.7.0",
+    "rimraf": "^6.0.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2"
+  }
+}
