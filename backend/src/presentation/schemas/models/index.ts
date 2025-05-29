@@ -1,2 +1,2 @@
-export * from './executed-recipe-schema';
+export * from './products-schema';
 export * from './error-schema'
