@@ -6,6 +6,7 @@ import {
   UpadateProductsRepository
 } from '../data/protocols';
 import { ProdutcsModel } from '../domain/models/produtcs';
+import { emitProductUpdate } from './websocket/socket-emitter';
 
 const prisma = new PrismaClient();
 
@@ -13,6 +14,7 @@ export class ProdutcsRepository
   implements AddProdutcsRepository, LoadProductsRepository, DeleteProductsRepository, UpadateProductsRepository {
   async loadProdutcs(): Promise<ProdutcsModel[] | null> {
     const products = await prisma.products.findMany();
+    emitProductUpdate(products);
     return products;
   }
 
@@ -23,6 +25,8 @@ export class ProdutcsRepository
           id: Number(params.id)
         }
       });
+      const products = await prisma.products.findMany();
+      emitProductUpdate(products);
       return true;
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
@@ -38,6 +42,9 @@ export class ProdutcsRepository
       data: produtcsData
     });
 
+    const products = await prisma.products.findMany();
+    emitProductUpdate(products);
+
     return updated;
   }
 
@@ -45,6 +52,9 @@ export class ProdutcsRepository
     const created = await prisma.products.create({
       data: params.produtcsData
     });
+
+    const products = await prisma.products.findMany();
+    emitProductUpdate(products);
 
     return created;
   }

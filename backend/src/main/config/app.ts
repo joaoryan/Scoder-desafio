@@ -1,7 +1,6 @@
 import express from 'express';
 import setupMiddlewares from './middlewares';
 import setupRoutes from './routes';
-
 import setupLimiter from './rate-limit';
 
 const app = express();

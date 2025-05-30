@@ -15,6 +15,7 @@ export class DbAddProdutcs implements AddProdutcs {
       creationDate: new Date(),
       lastupdateDate: new Date()
     };
+
     return await this.addProdutcsRepository.addProdutcs({ produtcsData: payload });
   };
 };
