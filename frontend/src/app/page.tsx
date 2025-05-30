@@ -7,19 +7,8 @@ import ProdutoAcoes from "@/components/ProdutoAcoes";
 import EditarProdutoModal from "@/components/modals/EditarProdutoModal";
 import DeletarProdutoModal from "@/components/modals/DeletarProdutoModal";
 import { ProdutcsModel } from "@/models/produtcs";
+import { getSocket } from "@/lib/socket";
 
-interface Produto {
-  id: number;
-  nome: string;
-  categoria: string;
-  preco: number;
-}
-
-interface ProdutoInput {
-  nome: string;
-  categoria: string;
-  preco: number;
-}
 
 interface CategoriaResumo {
   categoria: string;
@@ -33,15 +22,26 @@ export default function Home() {
   const [produtoEditar, setProdutoEditar] = useState<ProdutcsModel | null>(null);
   const [produtoDeletar, setProdutoDeletar] = useState<ProdutcsModel | null>(null);
 
-  const carregarProdutos = async () => {
-    const data = await produtoService.loadProduct();
-    setProdutos(data);
-  };
+  /*   const carregarProdutos = async () => {
+      const result = await produtoService.loadProduct();
+      console.log(result)
+    }; */
 
   useEffect(() => {
-    carregarProdutos();
-  }, []);
+    // carregarProdutos();
 
+    const socket = getSocket();
+
+    produtoService.loadProduct(); // ou atualize os produtos aqui
+
+    socket.on("products:update", (data) => {
+      setProdutos(data);
+    });
+
+    return () => {
+      socket.off("products:update");
+    };
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-50 p-4 text-gray-900">
@@ -57,29 +57,24 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Modal Cadastrar */}
       <ProdutoModal
         isOpen={modalCadastrarAberto}
         onClose={() => setModalCadastrarAberto(false)}
       />
 
-      {/* Modal Editar */}
       {produtoEditar && (
         <EditarProdutoModal
           produto={produtoEditar}
           isOpen={!!produtoEditar}
           onClose={() => setProdutoEditar(null)}
-
         />
       )}
 
-      {/* Modal Deletar */}
       {produtoDeletar && (
         <DeletarProdutoModal
           produto={produtoDeletar}
           isOpen={!!produtoDeletar}
           onClose={() => setProdutoDeletar(null)}
-
         />
       )}
 
