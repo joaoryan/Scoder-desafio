@@ -1,0 +1,1 @@
+export * from './factory-load-products-controller';

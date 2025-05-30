@@ -1,1 +1,1 @@
-export * from './factory-add-executed-recipe-controller';
+export * from './factory-add-products-controller';

@@ -1,0 +1,1 @@
+export * from './factory-update-products-controller';

@@ -1,1 +1,1 @@
-export * from './add-produtcs';
+export * from './produtcs';
