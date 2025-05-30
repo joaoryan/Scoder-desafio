@@ -1,5 +1,6 @@
 "use client";
 
+import { produtoService } from "@/services/produtoService";
 import { useEffect, useState } from "react";
 //import { io } from "socket.io-client";
 //import axios from "axios";
@@ -22,10 +23,7 @@ export default function Home() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [resumoCategorias, setResumoCategorias] = useState<CategoriaResumo[]>([]);
 
-  const fetchProdutos = async () => {
-    //const response = await axios.get<Produto[]>("http://localhost:3000/produtos");
-    //setProdutos(response.data);
-  };
+
 
   const atualizarResumo = (produtos: Produto[]) => {
     const resumo = produtos.reduce<Record<string, number>>((acc, produto) => {
@@ -42,15 +40,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    /* fetchProdutos();
+    async function fetchProdutos() {
+      const data = await produtoService.listarTodos();
+      setProdutos(data);
+      console.log(data)
+    }
 
-    socket.on("produtoAtualizado", () => {
-      fetchProdutos();
-    });
-
-    return () => {
-      socket.off("produtoAtualizado");
-    }; */
+    fetchProdutos();
   }, []);
 
   useEffect(() => {
@@ -94,7 +90,7 @@ export default function Home() {
                 <td className="p-3">{produto.id}</td>
                 <td className="p-3">{produto.nome}</td>
                 <td className="p-3">{produto.categoria}</td>
-                <td className="p-3">R$ {produto.preco.toFixed(2)}</td>
+                <td className="p-3">R$ {produto.preco}</td>
               </tr>
             ))}
           </tbody>
