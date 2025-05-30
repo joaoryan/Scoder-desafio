@@ -18,7 +18,7 @@ export class LoadProdutcsController implements Controller {
       if (!requestResult || requestResult === null) {
         return noContent();
       };
-
+      console.log(requestResult)
       return ok(requestResult);
     } catch (error: any) {
       return serverError(new ServerError(error.stack));

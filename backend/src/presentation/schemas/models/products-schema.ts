@@ -6,16 +6,14 @@ export const AddProductsSchema = z.object({
     .nullish(),
   name: z
     .string(),
-  description: z
-    .string(),
   price: z
     .number(),
-  image: z
+  category: z
     .string(),
   creationDate: z
-    .coerce.date(),
+    .coerce.date().nullish(),
   lastupdateDate: z
-    .coerce.date(),
+    .coerce.date().nullish(),
 })
 
 export const UpdateProductsSchema = z.object({
@@ -23,15 +21,13 @@ export const UpdateProductsSchema = z.object({
   produtcsData: z.object({
     name: z
       .string(),
-    description: z
-      .string(),
     price: z
       .number(),
-    image: z
+    category: z
       .string(),
     creationDate: z
-      .coerce.date(),
+      .coerce.date().nullish(),
     lastupdateDate: z
-      .coerce.date()
+      .coerce.date().nullish()
   })
 })

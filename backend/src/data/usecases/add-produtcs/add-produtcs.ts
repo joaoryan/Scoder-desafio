@@ -10,6 +10,11 @@ export class DbAddProdutcs implements AddProdutcs {
   };
 
   async add(params: { produtcsData: ProdutcsModel }): Promise<ProdutcsModel> {
-    return await this.addProdutcsRepository.addProdutcs(params);
+    const payload: ProdutcsModel = {
+      ...params.produtcsData,
+      creationDate: new Date(),
+      lastupdateDate: new Date()
+    };
+    return await this.addProdutcsRepository.addProdutcs({ produtcsData: payload });
   };
 };

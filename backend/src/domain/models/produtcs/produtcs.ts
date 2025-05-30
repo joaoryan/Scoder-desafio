@@ -1,9 +1,8 @@
 export type ProdutcsModel = {
   id?: number
-  name: string
-  description: string
-  price: number
-  image: string
-  creationDate: Date
-  lastupdateDate: Date
+  name: string | null
+  price: number | null
+  category: string | null
+  creationDate?: Date | null
+  lastupdateDate?: Date | null
 }

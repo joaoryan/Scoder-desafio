@@ -11,8 +11,9 @@ export class UpdateProdutcsController implements Controller {
   };
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    console.log(httpRequest.body)
     try {
-      const { id, produtcsData } = httpRequest.body.data;
+      const { id, produtcsData } = httpRequest.body;
 
       const requestResult = await this.updateProdutcs.update({ id: id, produtcsData: produtcsData });
 
@@ -22,6 +23,7 @@ export class UpdateProdutcsController implements Controller {
 
       return ok(requestResult);
     } catch (error: any) {
+      console.log(error)
       return serverError(new ServerError(error.stack));
     }
   };
