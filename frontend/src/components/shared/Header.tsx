@@ -1,14 +1,24 @@
 "use client";
 
+import Image from 'next/image';
+import logo from "@/img/logo.png";
+
 export default function Header() {
     return (
-        <header className="w-full bg-green-600 text-white p-4 shadow-md">
+        <header className="w-full bg-[#3B328E] text-white p-4 shadow-md">
             <div className="max-w-6xl mx-auto flex items-center justify-between">
-                <h1 className="text-xl font-bold">Meu Sistema de Vendas</h1>
-                <nav className="space-x-4">
-                    <a href="/" className="hover:underline">Home</a>
-                    <a href="/produtos" className="hover:underline">Produtos</a>
-                    <a href="/vendas" className="hover:underline">Vendas</a>
+                <div className="flex items-center gap-3">
+                    {/* Logo */}
+                    <Image
+                        src={logo}      // ajuste para o caminho da sua imagem
+                        alt="Logo"
+                        className="h-10 w-auto" // altura 32px, largura automática para manter proporção
+                    />
+                </div>
+
+                <nav className="space-x-20">
+                    <a href="/" className="hover:text-[#7045FF]">SuriGestor</a>
+                    <a href="/vendas" className="hover:text-[#7045FF]">SuriStore</a>
                 </nav>
             </div>
         </header>

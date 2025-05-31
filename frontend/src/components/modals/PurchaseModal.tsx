@@ -23,8 +23,6 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
     if (!isOpen || !produto) return null;
 
     const handleComprar = async () => {
-        console.log(produto)
-        console.log(quantidade)
         const novaQuantidadeVendida = (produto.sales ?? 0) + quantidade;
         const novoEstoque = (produto.stock ?? 0) - quantidade;
 
@@ -52,20 +50,27 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Comprar {produto.name}
-                </h2>
+        <div
+            className="fixed inset-0 bg-[#282262]/90 backdrop-blur-sm flex items-center justify-center z-50"
+            onClick={onClose}
+        >
+            <div
+                className="bg-[#3B328E] p-6 rounded-xl shadow-lg w-full max-w-sm text-white"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <h2 className="text-2xl font-semibold mb-4">{`Comprar ${produto.name}`}</h2>
 
-                <p className="text-gray-700 mb-2">
+                <p className="text-[#CCCCCC] mb-2">
                     Preço unitário:{" "}
-                    <span className="font-medium text-green-700">
+                    <span className="font-medium text-[#7EE787]">
                         R$ {produto.price}
                     </span>
                 </p>
 
-                <label className="block text-sm text-gray-600 mb-1" htmlFor="quantidade">
+                <label
+                    className="block text-sm text-[#CCCCCC] mb-1"
+                    htmlFor="quantidade"
+                >
                     Quantidade:
                 </label>
                 <input
@@ -74,24 +79,24 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
                     min={1}
                     value={quantidade}
                     onChange={(e) => setQuantidade(Number(e.target.value))}
-                    className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full p-2 border border-[#7045FF] rounded mb-4 bg-[#080525] text-white placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#7045FF]"
                 />
 
-                <p className="text-gray-800 font-semibold mb-4">
+                <p className="text-white font-semibold mb-4">
                     Total a pagar:{" "}
-                    <span className="text-green-700">R$ {total.toFixed(2)}</span>
+                    <span className="text-[#7EE787]">R$ {total.toFixed(2)}</span>
                 </p>
 
                 <div className="flex justify-end gap-2">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                        className="px-4 py-2 bg-[#080525] border border-[#7045FF] text-[#7045FF] rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
                     >
                         Cancelar
                     </button>
                     <button
                         onClick={handleComprar}
-                        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                        className="px-4 py-2 bg-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
                     >
                         Confirmar
                     </button>

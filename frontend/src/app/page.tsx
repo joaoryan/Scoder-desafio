@@ -20,6 +20,8 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
+import Image from 'next/image';
+import suricatostore from "@/img/suricato-gerente.png";
 
 
 interface CategoriaResumo {
@@ -92,14 +94,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-50 p-4 text-gray-900">
+    <main className="min-h-screen bg-[#282262] p-4 text-white">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-center flex-1">Gerenciador de Produtos</h1>
+        <h1 className="text-3xl font-bold text-center flex-1">SuriGestor de Produtos</h1>
       </div>
 
       <div className="flex justify-end items-center mb-6">
         <button
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          className="px-4 py-2 bg-[#7045FF] text-white rounded hover:bg-[#3B328E]"
           onClick={() => setModalCadastrarAberto(true)}
         >
           Cadastrar Produto
@@ -125,20 +127,55 @@ export default function Home() {
       )}
 
       <section className="grid gap-4 md:grid-cols-3 mb-6">
-        <div className="bg-white shadow-md rounded-xl p-4 text-center">
-          <h2 className="text-xl font-semibold">Total de Produtos</h2>
-          <p className="text-3xl font-bold" aria-live="polite">
-            {produtos.length}
-          </p>
+        {/* Card com imagem flutuante acima */}
+        <div className="relative">
+          {/* Imagem absoluta saindo do card */}
+          <Image
+            src={suricatostore}
+            alt="Ícone flutuante"
+            width={80}
+            height={80}
+            className="absolute -top-27 left-4 z-10"
+          />
+
+          <section className="bg-[#3B328E] shadow-md rounded-xl p-4 text-white flex min-h-[152px] w-full">
+            {/* Lado esquerdo: total produtos */}
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <h2 className="text-lg font-semibold mb-2 text-center">Total de Produtos</h2>
+              <p className="text-3xl font-bold" aria-live="polite">
+                {produtos.length}
+              </p>
+            </div>
+
+            {/* Linha vertical separadora */}
+            <div className="border-l border-[#7045FF] mx-4" />
+
+            {/* Lado direito: ranking top 3 mais vendidos */}
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <h2 className="text-lg font-semibold mb-2 text-center">Top 3 Produtos Mais Vendidos</h2>
+              <ol className="list-decimal list-inside space-y-1 text-sm w-full max-w-[180px]">
+                {produtos
+                  .slice()
+                  .sort((a, b) => (b.sales ?? 0) - (a.sales ?? 0))
+                  .slice(0, 3)
+                  .map((produto) => (
+                    <li key={produto.id} className="flex justify-between px-2">
+                      <span className="truncate max-w-[70%]">{produto.name}</span>
+                      <span className="font-semibold text-[#7045FF]">{produto.sales ?? 0}</span>
+                    </li>
+                  ))}
+              </ol>
+            </div>
+          </section>
         </div>
 
-        <div className="md:col-span-2 bg-white shadow-md rounded-xl p-4 overflow-x-auto">
+        <div className="md:col-span-2 bg-[#3B328E] shadow-md rounded-xl p-4 overflow-x-auto min-h-[152px]">
           <h2 className="text-xl font-semibold mb-2">Produtos por Categoria</h2>
           <div className="flex gap-6">
             {resumoCategorias.map((cat) => (
               <div
                 key={cat.categoria}
-                className="flex flex-col items-center justify-center bg-gray-100 rounded-lg p-4 min-w-[120px]"
+                className="flex flex-col items-center justify-center bg-[#282262] rounded-lg p-4 min-w-[120px]"
               >
                 <span className="text-md font-medium">{cat.categoria}</span>
                 <span className="text-xl font-bold">{cat.quantidade}</span>
@@ -148,10 +185,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mb-10 shadow-md rounded-xl">
+      <section className="mb-10 shadow-md rounded-xl bg-[#3B328E]">
         <div className="overflow-y-auto max-h-[360px]">
-          <table className="min-w-full">
-            <thead className="bg-gray-100 sticky top-0 z-10">
+          <table className="min-w-full text-white">
+            <thead className="bg-[#7045FF] sticky top-0 z-10">
               <tr>
                 <th className="text-left p-3">ID</th>
                 <th className="text-left p-3">Nome</th>
@@ -165,17 +202,17 @@ export default function Home() {
             </thead>
             <tbody>
               {produtos.map((produto) => (
-                <tr key={produto.id} className="border-t">
+                <tr key={produto.id} className="border-t border-gray-600 text-gray-300">
                   <td className="p-3">{produto.id}</td>
                   <td className="p-3">{produto.name}</td>
                   <td className="p-3">{produto.category}</td>
                   <td className="p-3">R$ {produto.price}</td>
                   <td className="p-3">{produto.sales ?? 0}</td>
-                  <td className="p-3 flex justify-end gap-4">
-                    <button onClick={() => setProdutoEditar(produto)} className="text-blue-600 hover:text-blue-800">
+                  <td className="p-3 flex justify-end gap-10">
+                    <button onClick={() => setProdutoEditar(produto)} title="Clique para editar" className="text-blue-300 hover:text-blue-500">
                       ✏️
                     </button>
-                    <button onClick={() => setProdutoDeletar(produto)} className="text-red-600 hover:text-red-800">
+                    <button onClick={() => setProdutoDeletar(produto)} className="text-red-400 hover:text-red-600">
                       🗑️
                     </button>
                   </td>
@@ -186,12 +223,10 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* Gráfico de Vendas */}
+      {/* Gráficos */}
       <section className="grid md:grid-cols-2 gap-6 mb-10">
-        {/* Gráfico de Pizza */}
-        <div className="bg-white shadow-md rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-4">Vendas por Produto</h2>
+        <div className="bg-[#3B328E] shadow-md rounded-xl p-6">
+          <h2 className=" text-xl font-semibold mb-4">Vendas por Produto</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -209,43 +244,39 @@ export default function Home() {
                 ))}
               </Pie>
               <Tooltip />
-              {/* <Legend /> */}
             </PieChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Gráfico de Barras por Categoria */}
-        <div className="bg-white shadow-md rounded-xl p-6">
+        <div className="bg-[#3B328E] shadow-md rounded-xl p-6">
           <h2 className="text-xl font-semibold mb-4">Vendas por Categoria</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={dadosVendasCategoria}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="categoria" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#D3D3D3" />
+              <XAxis dataKey="categoria" stroke="#FFFFFF" />
+              <YAxis stroke="#FFFFFF" />
               <Tooltip />
               <Legend />
-              <Bar dataKey="total" fill="#82ca9d" name="Total de Vendas" />
+              <Bar dataKey="total" fill="#7045FF" name="Total de Vendas" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </section>
 
-      {/* Gráfico de Estoque vs Vendas */}
-      <section className="bg-white shadow-md rounded-xl p-6 mt-10">
+      <section className="bg-[#3B328E] shadow-md rounded-xl p-6 mt-10">
         <h2 className="text-xl font-semibold mb-4">Estoque</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={produtos}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" stroke="#D3D3D3" />
+            <XAxis dataKey="name" stroke="#FFFFFF" />
+            <YAxis stroke="#FFFFFF" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="sales" fill="#8884d8" name="Vendas" />
-            <Bar dataKey="stock" fill="#82ca9d" name="Estoque" />
+            <Bar dataKey="sales" fill="#8884d8" name="Vendidos" />
+            <Bar dataKey="stock" fill="#00C49F" name="Estoque atual" />
           </BarChart>
         </ResponsiveContainer>
       </section>
-
     </main>
   );
 }
