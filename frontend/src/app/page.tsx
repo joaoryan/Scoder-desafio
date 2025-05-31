@@ -6,7 +6,7 @@ import ProdutoModal from "@/components/modals/CreateProductModal";
 import ProdutoAcoes from "@/components/ProdutoAcoes";
 import EditarProdutoModal from "@/components/modals/EditarProdutoModal";
 import DeletarProdutoModal from "@/components/modals/DeletarProdutoModal";
-import { ProdutcsModel } from "@/models/produtcs";
+import { ProductsModel } from "@/models/products";
 import { getSocket } from "@/lib/socket";
 
 
@@ -16,11 +16,11 @@ interface CategoriaResumo {
 }
 
 export default function Home() {
-  const [produtos, setProdutos] = useState<ProdutcsModel[]>([]);
+  const [produtos, setProdutos] = useState<ProductsModel[]>([]);
   const [resumoCategorias, setResumoCategorias] = useState<CategoriaResumo[]>([]);
   const [modalCadastrarAberto, setModalCadastrarAberto] = useState(false);
-  const [produtoEditar, setProdutoEditar] = useState<ProdutcsModel | null>(null);
-  const [produtoDeletar, setProdutoDeletar] = useState<ProdutcsModel | null>(null);
+  const [produtoEditar, setProdutoEditar] = useState<ProductsModel | null>(null);
+  const [produtoDeletar, setProdutoDeletar] = useState<ProductsModel | null>(null);
 
   /*   const carregarProdutos = async () => {
       const result = await produtoService.loadProduct();

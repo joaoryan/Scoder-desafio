@@ -1,7 +1,7 @@
 import type { Controller } from '../../../../presentation/protocols';
-import { AddProdutcsController } from '../../../../presentation/controller';
-import { makeAddProdutcs } from '../../usecases';
+import { AddProductsController } from '../../../../presentation/controller';
+import { makeAddProducts } from '../../usecases';
 
-export const makeAddProdutcsController = (): Controller => {
-  return new AddProdutcsController(makeAddProdutcs());
+export const makeAddProductsController = (): Controller => {
+  return new AddProductsController(makeAddProducts());
 };

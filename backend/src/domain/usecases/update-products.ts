@@ -1,11 +1,11 @@
-import { ProdutcsModel } from '../models/produtcs';
+import { ProductsModel } from '../models/products';
 
-export interface UpdateProdutcs {
-  update(params: { id: number, produtcsData: ProdutcsModel }): Promise<ProdutcsModel | null>;
+export interface UpdateProducts {
+  update(params: { id: number, productsData: ProductsModel }): Promise<ProductsModel | null>;
 };
 
-export namespace UpdateProdutcs {
+export namespace UpdateProducts {
   export type Request = {
-    body: { id: number, produtcsData: ProdutcsModel }
+    body: { id: number, productsData: ProductsModel }
   };
 };

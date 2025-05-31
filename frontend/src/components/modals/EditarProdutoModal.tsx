@@ -1,11 +1,11 @@
 "use client";
 
-import { ProdutcsModel } from "@/models/produtcs";
+import { ProductsModel } from "@/models/products";
 import { produtoService } from "@/services/produtoService";
 import { useState, useEffect } from "react";
 
 interface Props {
-    produto: ProdutcsModel | null;
+    produto: ProductsModel | null;
     isOpen: boolean;
     onClose: () => void;
 }
@@ -29,7 +29,7 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
         e.preventDefault();
         await produtoService.updateProduct({
             id: produto?.id ?? 1,
-            produtcsData: {
+            productsData: {
                 name: nome,
                 price: preco,
                 category: categoria

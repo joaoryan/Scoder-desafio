@@ -1,10 +1,10 @@
 "use client";
 
-import { ProdutcsModel } from "@/models/produtcs";
+import { ProductsModel } from "@/models/products";
 import { produtoService } from "@/services/produtoService";
 
 interface Props {
-    produto: ProdutcsModel | null;
+    produto: ProductsModel | null;
     isOpen: boolean;
     onClose: () => void;
 }

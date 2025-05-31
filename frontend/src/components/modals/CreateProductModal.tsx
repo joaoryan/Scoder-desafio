@@ -1,6 +1,6 @@
 "use client";
 
-import { ProdutcsModel } from "@/models/produtcs";
+import { ProductsModel } from "@/models/products";
 import { produtoService } from "@/services/produtoService";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function ProdutoModal({ isOpen, onClose }: Props) {
-    const [form, setForm] = useState<ProdutcsModel>({
+    const [form, setForm] = useState<ProductsModel>({
         name: "",
         category: "",
         price: 0,
@@ -20,7 +20,7 @@ export default function ProdutoModal({ isOpen, onClose }: Props) {
 
     if (!isOpen) return null;
 
-    const handleCadastrar = async (produto: ProdutcsModel) => {
+    const handleCadastrar = async (produto: ProductsModel) => {
         await produtoService.createProduct(produto)
         onClose()
     };

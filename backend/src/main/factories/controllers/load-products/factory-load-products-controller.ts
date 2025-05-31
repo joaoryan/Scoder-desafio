@@ -1,7 +1,7 @@
 import type { Controller } from '../../../../presentation/protocols';
-import { LoadProdutcsController } from '../../../../presentation/controller/load-produtcs';
-import { makeLoadProdutcs } from '../../usecases/produtcs/factory-load-produtcs';
+import { LoadProductsController } from '../../../../presentation/controller/load-products';
+import { makeLoadProducts } from '../../usecases';
 
-export const makeLoadProdutcsController = (): Controller => {
-  return new LoadProdutcsController(makeLoadProdutcs());
+export const makeLoadProductsController = (): Controller => {
+  return new LoadProductsController(makeLoadProducts());
 };

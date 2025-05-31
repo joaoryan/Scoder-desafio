@@ -7,38 +7,39 @@ import {
 } from '../../presentation/schemas';
 
 import {
-  makeAddProdutcsController
+  makeAddProductsController,
+  makeDeleteProductsController,
+  makeLoadProductsController,
+  makeUpdateProductsController
 } from '../factories/controllers';
 import { deleteProductsSchema } from '../../presentation/schemas/routes/delete-products-schema';
 import { updateProductsSchema } from '../../presentation/schemas/routes/update-products-schema';
 import { loadProductsSchema } from '../../presentation/schemas/routes/load-products-schema';
-import { makeLoadProdutcsController } from '../factories/controllers/load-products';
-import { makeUpdateProdutcsController } from '../factories/controllers/update-products';
-import { makeDeleteProdutcsController } from '../factories/controllers/delete-products';
+
 
 
 export default (router: Router) => {
   router.post(
     '/create/products',
     validationMiddleware(addProductsSchema),
-    adptRoute(makeAddProdutcsController())
+    adptRoute(makeAddProductsController())
   );
 
   router.get(
     '/load/products',
     validationMiddleware(loadProductsSchema),
-    adptRoute(makeLoadProdutcsController())
+    adptRoute(makeLoadProductsController())
   );
 
   router.put(
     '/update/products',
     validationMiddleware(updateProductsSchema),
-    adptRoute(makeUpdateProdutcsController())
+    adptRoute(makeUpdateProductsController())
   );
 
   router.delete(
     '/delete/products/:id',
     validationMiddleware(deleteProductsSchema),
-    adptRoute(makeDeleteProdutcsController())
+    adptRoute(makeDeleteProductsController())
   );
 };

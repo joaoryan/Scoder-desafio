@@ -1,7 +1,7 @@
-import { ProdutcsModel } from '../models/produtcs';
+import { ProductsModel } from '../models/products';
 
 export interface LoadProducts {
-  load(): Promise<ProdutcsModel[] | null>;
+  load(): Promise<ProductsModel[] | null>;
 };
 
 

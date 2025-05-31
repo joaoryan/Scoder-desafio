@@ -18,7 +18,7 @@ export const AddProductsSchema = z.object({
 
 export const UpdateProductsSchema = z.object({
   id: z.number(),
-  produtcsData: z.object({
+  productsData: z.object({
     name: z
       .string(),
     price: z
