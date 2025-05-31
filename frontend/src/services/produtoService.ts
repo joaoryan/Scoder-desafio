@@ -1,4 +1,4 @@
-import { ProductsModel } from "@/models/products";
+import { ProductsModel } from "@/models/produtcs";
 import axios from "axios";
 
 
@@ -24,9 +24,4 @@ export const produtoService = {
         const response = await axios.delete<any>(`${API_URL}/delete/products/${id}`);
         return response.data;
     },
-
-    // Exemplo para outras operações do CRUD (caso adicione depois):
-    // async criar(produto: Produto) { ... }
-    // async atualizar(id: number, produto: Produto) { ... }
-    // async remover(id: number) { ... }
 };

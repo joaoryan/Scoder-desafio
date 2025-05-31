@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductsModel } from "@/models/products";
+import { ProductsModel } from "@/models/produtcs";
 import { produtoService } from "@/services/produtoService";
 import { useState } from "react";
 

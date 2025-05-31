@@ -6,9 +6,8 @@ import ProdutoModal from "@/components/modals/CreateProductModal";
 import ProdutoAcoes from "@/components/ProdutoAcoes";
 import EditarProdutoModal from "@/components/modals/EditarProdutoModal";
 import DeletarProdutoModal from "@/components/modals/DeletarProdutoModal";
-import { ProductsModel } from "@/models/products";
+import { ProductsModel } from "@/models/produtcs";
 import { getSocket } from "@/lib/socket";
-
 
 interface CategoriaResumo {
   categoria: string;
@@ -22,20 +21,42 @@ export default function Home() {
   const [produtoEditar, setProdutoEditar] = useState<ProductsModel | null>(null);
   const [produtoDeletar, setProdutoDeletar] = useState<ProductsModel | null>(null);
 
-  /*   const carregarProdutos = async () => {
-      const result = await produtoService.loadProduct();
-      console.log(result)
-    }; */
+  const carregarProdutos = async () => {
+    const result = await produtoService.loadProduct();
+    setProdutos(result);
+
+    const resumo = result.reduce((acc: Record<string, number>, prod: ProductsModel) => {
+      acc[prod.category] = (acc[prod.category] || 0) + 1;
+      return acc;
+    }, {});
+
+    const categorias = Object.entries(resumo).map(([categoria, quantidade]) => ({
+      categoria,
+      quantidade,
+    }));
+
+    setResumoCategorias(categorias);
+  };
 
   useEffect(() => {
-    // carregarProdutos();
+    carregarProdutos();
 
     const socket = getSocket();
 
-    produtoService.loadProduct(); // ou atualize os produtos aqui
-
-    socket.on("products:update", (data) => {
+    socket.on("products:update", (data: ProductsModel[]) => {
       setProdutos(data);
+
+      const resumo = data.reduce((acc: Record<string, number>, prod) => {
+        acc[prod.category] = (acc[prod.category] || 0) + 1;
+        return acc;
+      }, {});
+
+      const categorias = Object.entries(resumo).map(([categoria, quantidade]) => ({
+        categoria,
+        quantidade,
+      }));
+
+      setResumoCategorias(categorias);
     });
 
     return () => {
@@ -79,24 +100,28 @@ export default function Home() {
       )}
 
       <section className="grid gap-4 md:grid-cols-3 mb-6">
-        <div className="bg-white shadow-md rounded-xl p-4">
+        <div className="bg-white shadow-md rounded-xl p-4 flex justify-center items-center flex-col">
           <h2 className="text-xl font-semibold">Total de Produtos</h2>
           <p className="text-3xl font-bold" aria-live="polite">
             {produtos.length}
           </p>
         </div>
-        {resumoCategorias.map((cat) => (
-          <div
-            key={cat.categoria}
-            className="bg-white shadow-md rounded-xl p-4"
-            aria-label={`Categoria ${cat.categoria}`}
-          >
-            <h2 className="text-xl font-semibold">{cat.categoria}</h2>
-            <p className="text-2xl font-bold" aria-live="polite">
-              {cat.quantidade}
-            </p>
+
+        {/* Card Horizontal com Categorias */}
+        <div className="md:col-span-2 bg-white shadow-md rounded-xl p-4 overflow-x-auto">
+          <h2 className="text-xl font-semibold mb-2">Produtos por Categoria</h2>
+          <div className="flex gap-6">
+            {resumoCategorias.map((cat) => (
+              <div
+                key={cat.categoria}
+                className="flex flex-col items-center justify-center bg-gray-100 rounded-lg p-4 min-w-[120px]"
+              >
+                <span className="text-md font-medium">{cat.categoria}</span>
+                <span className="text-xl font-bold">{cat.quantidade}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </section>
 
       <section className="overflow-x-auto min-h-[400px]">
