@@ -5,4 +5,6 @@ export type ProductsModel = {
   category: string
   creationDate?: Date
   lastupdateDate?: Date
+  sales?: number
+  stock?: number;
 }
