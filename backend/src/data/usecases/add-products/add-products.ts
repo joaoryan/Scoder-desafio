@@ -1,6 +1,7 @@
 import type { AddProducts } from '../../../domain/usecases';
 import type { AddProductsRepository } from '../../protocols';
 import type { ProductsModel } from '../../../domain/models/products';
+import { Decimal } from '../../../generated/prisma/runtime/library';
 
 export class DbAddProducts implements AddProducts {
   private readonly addProductsRepository: AddProductsRepository;
@@ -12,10 +13,11 @@ export class DbAddProducts implements AddProducts {
   async add(params: { productsData: ProductsModel }): Promise<ProductsModel> {
     const payload: ProductsModel = {
       ...params.productsData,
+      price: Decimal(params.productsData.price),
       creationDate: new Date(),
       lastupdateDate: new Date()
     };
-
+    console.log(payload)
     return await this.addProductsRepository.addProducts({ productsData: payload });
   };
 };

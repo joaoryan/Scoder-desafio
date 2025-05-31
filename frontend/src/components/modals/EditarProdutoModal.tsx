@@ -13,13 +13,17 @@ interface Props {
 export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) {
     const [nome, setNome] = useState("");
     const [categoria, setCategoria] = useState("");
-    const [preco, setPreco] = useState(1);
+    const [preco, setPreco] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [estoque, setEstoque] = useState(0);
 
     useEffect(() => {
         if (produto) {
-            setNome(produto.name ?? '');
-            setCategoria(produto.category ?? '');
-            setPreco(1);
+            setNome(produto.name ?? "");
+            setCategoria(produto.category ?? "");
+            setPreco(produto.price?.toString().replace(".", ",") ?? "");
+            setDescricao(produto.description ?? "");
+            setEstoque(produto.stock ?? 0);
         }
     }, [produto]);
 
@@ -27,15 +31,18 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+
         await produtoService.updateProduct({
-            id: produto?.id ?? 1,
+            id: produto?.id,
             productsData: {
                 name: nome,
-                price: preco,
-                category: categoria
-            }
-
+                price: preco.replace(",", "."),
+                category: categoria,
+                description: descricao,
+                stock: estoque,
+            },
         });
+
         onClose();
     }
 
@@ -43,8 +50,8 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
         <div className="fixed inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center z-50">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white p-6 rounded-xl shadow-lg"
-                onClick={e => e.stopPropagation()}
+                className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md"
+                onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="text-xl font-bold mb-4">Editar Produto</h2>
 
@@ -53,7 +60,7 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
                     <input
                         className="w-full border p-2 rounded"
                         value={nome}
-                        onChange={e => setNome(e.target.value)}
+                        onChange={(e) => setNome(e.target.value)}
                         required
                     />
                 </label>
@@ -63,20 +70,41 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
                     <input
                         className="w-full border p-2 rounded"
                         value={categoria}
-                        onChange={e => setCategoria(e.target.value)}
+                        onChange={(e) => setCategoria(e.target.value)}
                         required
                     />
                 </label>
 
-                <label className="block mb-4">
+                <label className="block mb-2">
                     Preço:
                     <input
-                        type="number"
-                        step="0.01"
+                        type="text"
+                        inputMode="decimal"
                         className="w-full border p-2 rounded"
                         value={preco}
-                        onChange={e => setPreco(1)}
+                        onChange={(e) => setPreco(e.target.value)}
                         required
+                    />
+                </label>
+
+                <label className="block mb-2">
+                    Descrição:
+                    <textarea
+                        className="w-full border p-2 rounded"
+                        value={descricao}
+                        onChange={(e) => setDescricao(e.target.value)}
+                        rows={3}
+                    />
+                </label>
+
+                <label className="block mb-4">
+                    Estoque:
+                    <input
+                        type="number"
+                        className="w-full border p-2 rounded"
+                        value={estoque}
+                        onChange={(e) => setEstoque(Number(e.target.value))}
+                        min={0}
                     />
                 </label>
 

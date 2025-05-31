@@ -1,33 +1,29 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const AddProductsSchema = z.object({
-  id: z
-    .number()
-    .nullish(),
-  name: z
-    .string(),
+  id: z.number().optional(),
+  name: z.string(),
   price: z
-    .number(),
-  category: z
     .string(),
-  creationDate: z
-    .coerce.date().nullish(),
-  lastupdateDate: z
-    .coerce.date().nullish(),
-})
+  category: z.string(),
+  description: z.string().optional().nullable(),
+  sales: z.number().optional().default(0),
+  stock: z.number().optional().default(0),
+  creationDate: z.coerce.date().optional(),
+  lastupdateDate: z.coerce.date().optional(),
+});
 
 export const UpdateProductsSchema = z.object({
   id: z.number(),
   productsData: z.object({
-    name: z
-      .string(),
+    name: z.string(),
     price: z
-      .number(),
-    category: z
       .string(),
-    creationDate: z
-      .coerce.date().nullish(),
-    lastupdateDate: z
-      .coerce.date().nullish()
-  })
-})
+    category: z.string(),
+    description: z.string().optional().nullable(),
+    sales: z.number().optional(),
+    stock: z.number().optional(),
+    creationDate: z.coerce.date().optional(),
+    lastupdateDate: z.coerce.date().optional(),
+  }),
+});

@@ -22,6 +22,7 @@ export class AddProductsController implements Controller {
 
       return ok({});
     } catch (error: any) {
+      console.log(error)
       return serverError(new ServerError(error.stack));
     }
   };

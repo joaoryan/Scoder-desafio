@@ -38,12 +38,8 @@ export default function Home() {
 
   const carregarProdutos = async () => {
     const result = await produtoService.loadProduct();
-    const produtosComVendas = result.map((produto) => ({
-      ...produto,
-      sales: Math.floor(Math.random() * 100) + 1,
-      stock: Math.floor(Math.random() * 100) + 1,
-    }));
-    setProdutos(produtosComVendas);
+
+    setProdutos(result);
 
     const resumo = result.reduce((acc: Record<string, number>, prod: ProductsModel) => {
       acc[prod.category] = (acc[prod.category] || 0) + 1;
@@ -74,12 +70,8 @@ export default function Home() {
     const socket = getSocket();
 
     socket.on("products:update", (data: ProductsModel[]) => {
-      const produtosComVendas = data.map((produto) => ({
-        ...produto,
-        sales: Math.floor(Math.random() * 100) + 1,
-        stock: Math.floor(Math.random() * 100) + 1,
-      }));
-      setProdutos(produtosComVendas);
+
+      setProdutos(data);
 
       const resumo = data.reduce((acc: Record<string, number>, prod) => {
         acc[prod.category] = (acc[prod.category] || 0) + 1;
@@ -157,60 +149,40 @@ export default function Home() {
       </section>
 
       <section className="mb-10 shadow-md rounded-xl">
-        <div className="bg-white rounded-xl overflow-hidden ">
-          <div className="bg-gray-100">
-            <table className="min-w-full">
-              <thead>
-                <tr>
-                  <th className="text-left p-3">ID</th>
-                  <th className="text-left p-3">Nome</th>
-                  <th className="text-left p-3">Categoria</th>
-                  <th className="text-left p-3">Preço</th>
-                  <th className="text-left p-3">Vendas</th>
-                  <th className="text-left p-3"></th>
-                  <th className="text-left p-3"></th>
-                  <th className="text-left p-3"></th>
+        <div className="overflow-y-auto max-h-[360px]">
+          <table className="min-w-full">
+            <thead className="bg-gray-100 sticky top-0 z-10">
+              <tr>
+                <th className="text-left p-3">ID</th>
+                <th className="text-left p-3">Nome</th>
+                <th className="text-left p-3">Categoria</th>
+                <th className="text-left p-3">Preço</th>
+                <th className="text-left p-3">Vendas</th>
+                <th className="text-left p-3"></th>
+                <th className="text-left p-3"></th>
+                <th className="text-left p-3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {produtos.map((produto) => (
+                <tr key={produto.id} className="border-t">
+                  <td className="p-3">{produto.id}</td>
+                  <td className="p-3">{produto.name}</td>
+                  <td className="p-3">{produto.category}</td>
+                  <td className="p-3">R$ {produto.price}</td>
+                  <td className="p-3">{produto.sales ?? 0}</td>
+                  <td className="p-3 flex justify-end gap-4">
+                    <button onClick={() => setProdutoEditar(produto)} className="text-blue-600 hover:text-blue-800">
+                      ✏️
+                    </button>
+                    <button onClick={() => setProdutoDeletar(produto)} className="text-red-600 hover:text-red-800">
+                      🗑️
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-            </table>
-          </div>
-
-          <div className="overflow-y-auto h-[360px]">
-            <table className="min-w-full">
-              <tbody>
-                {produtos.map((produto) => (
-                  <tr key={produto.id} className="border-t">
-                    <td className="p-3">{produto.id}</td>
-                    <td className="p-3">{produto.name}</td>
-                    <td className="p-3">{produto.category}</td>
-                    <td className="p-3">R$ {produto.price}</td>
-                    <td className="p-3">{produto.sales ?? 0}</td>
-                    <td className="p-3 flex justify-end  gap-4">
-                      {/* Ícone Editar */}
-                      <button
-                        onClick={() => setProdutoEditar(produto)}
-                        className="text-blue-600 hover:text-blue-800 cursor-pointer"
-                        title="Editar"
-                        aria-label={`Editar produto ${produto.name}`}
-                      >
-                        ✏️
-                      </button>
-
-                      {/* Ícone Deletar */}
-                      <button
-                        onClick={() => setProdutoDeletar(produto)}
-                        className="text-red-600 hover:text-red-800 cursor-pointer"
-                        title="Deletar"
-                        aria-label={`Deletar produto ${produto.name}`}
-                      >
-                        🗑️
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -237,7 +209,7 @@ export default function Home() {
                 ))}
               </Pie>
               <Tooltip />
-              <Legend />
+              {/* <Legend /> */}
             </PieChart>
           </ResponsiveContainer>
         </div>
