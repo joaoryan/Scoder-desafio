@@ -3,6 +3,7 @@
 import Image from "next/image";
 import suricatostore from "@/img/suricato-gerente.png";
 import { ProductsModel } from "@/models/produtcs";
+import { useEffect, useState } from "react";
 
 interface CategoriaResumo {
     categoria: string;
@@ -11,13 +12,27 @@ interface CategoriaResumo {
 
 interface ProductSummaryCardsProps {
     produtos: ProductsModel[];
-    resumoCategorias: CategoriaResumo[];
 }
 
-export default function ProductSummaryCards({
-    produtos,
-    resumoCategorias,
-}: ProductSummaryCardsProps) {
+export default function ProductSummaryCards({ produtos }: ProductSummaryCardsProps) {
+    const [resumoCategorias, setResumoCategorias] = useState<CategoriaResumo[]>([]);
+
+    useEffect(() => {
+
+        const resumo = produtos.reduce((acc: Record<string, number>, prod) => {
+            acc[prod.category] = (acc[prod.category] || 0) + 1;
+            return acc;
+        }, {});
+
+        const categorias = Object.entries(resumo).map(([categoria, quantidade]) => ({
+            categoria,
+            quantidade,
+        }));
+
+        setResumoCategorias(categorias);
+    }, [produtos]);
+
+
     return (
         <section className="grid gap-4 md:grid-cols-3 mb-6">
             <div className="relative">

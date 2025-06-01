@@ -7,83 +7,54 @@ import EditarProdutoModal from "@/components/modals/EditarProdutoModal";
 import DeletarProdutoModal from "@/components/modals/DeletarProdutoModal";
 import { ProductsModel } from "@/models/produtcs";
 import { getSocket } from "@/lib/socket";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
-import Image from 'next/image';
-import suricatostore from "@/img/suricato-gerente.png";
 import ProductTable from "@/components/shared/ProductTable";
 import ProductAnalytics from "@/components/shared/ProductAnalytics";
 import ProductSummaryCards from "@/components/shared/ProductSummaryCards";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 interface CategoriaResumo {
   categoria: string;
   quantidade: number;
 }
 
-const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#00C49F", "#FFBB28"];
+
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [produtos, setProdutos] = useState<ProductsModel[]>([]);
-  const [resumoCategorias, setResumoCategorias] = useState<CategoriaResumo[]>([]);
   const [modalCadastrarAberto, setModalCadastrarAberto] = useState(false);
   const [produtoEditar, setProdutoEditar] = useState<ProductsModel | null>(null);
   const [produtoDeletar, setProdutoDeletar] = useState<ProductsModel | null>(null);
 
-  const carregarProdutos = async () => {
-    const result = await produtoService.loadProduct();
-    setProdutos(result);
-    setLoading(false)
-    const resumo = result.reduce((acc: Record<string, number>, prod: ProductsModel) => {
-      acc[prod.category] = (acc[prod.category] || 0) + 1;
-      return acc;
-    }, {});
-
-    const categorias = Object.entries(resumo).map(([categoria, quantidade]) => ({
-      categoria,
-      quantidade,
-    }));
-
-    setResumoCategorias(categorias);
-  };
-
   useEffect(() => {
-    carregarProdutos();
-
-    const socket = getSocket();
-
-    socket.on("products:update", (data: ProductsModel[]) => {
-
-      setProdutos(data);
-
-      const resumo = data.reduce((acc: Record<string, number>, prod) => {
-        acc[prod.category] = (acc[prod.category] || 0) + 1;
-        return acc;
-      }, {});
-
-      const categorias = Object.entries(resumo).map(([categoria, quantidade]) => ({
-        categoria,
-        quantidade,
-      }));
-
-      setResumoCategorias(categorias);
-    });
-
-    return () => {
-      socket.off("products:update");
+    const carregarProdutos = async () => {
+      try {
+        const result = await produtoService.loadProduct();
+        setProdutos(result);
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-  }, []);
+
+    const setupSocketListeners = () => {
+      const socket = getSocket();
+
+      socket.on("products:update", (data: ProductsModel[]) => {
+        setProdutos(data);
+      });
+
+      return () => {
+        socket.off("products:update");
+      };
+    };
+
+    carregarProdutos();
+    const cleanup = setupSocketListeners();
+
+    return cleanup;
+  }, [setProdutos, setLoading]);
 
   return (
     <main className="min-h-screen bg-[#282262] p-4 text-white">
@@ -100,18 +71,29 @@ export default function Home() {
         </button>
       </div>
 
-      <ProductSummaryCards produtos={produtos} resumoCategorias={resumoCategorias} />
+      {loading ? (
+        <div className="w-full  min-h-[472px] h-full flex items-center justify-center">
+          <LoadingSpinner text={"Carregando informações do produto..."} imageSize={200} size={100} />
+        </div>
+      )
+        :
+        <>
+          <ProductSummaryCards produtos={produtos} />
 
-      <ProductTable
-        produtos={produtos}
-        onEdit={setProdutoEditar}
-        onDelete={setProdutoDeletar}
-      />
+          <ProductTable
+            produtos={produtos}
+            onEdit={setProdutoEditar}
+            onDelete={setProdutoDeletar}
+          />
 
-      <ProductAnalytics produtos={produtos} />
+          <ProductAnalytics produtos={produtos} />
 
 
-      <ProdutoModal isOpen={modalCadastrarAberto} onClose={() => setModalCadastrarAberto(false)} />
+          <ProdutoModal isOpen={modalCadastrarAberto} onClose={() => setModalCadastrarAberto(false)} />
+        </>
+      }
+
+
 
       {produtoEditar && (
         <EditarProdutoModal
