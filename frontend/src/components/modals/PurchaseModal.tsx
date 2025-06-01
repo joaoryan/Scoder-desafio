@@ -79,7 +79,7 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
                     min={1}
                     value={quantidade}
                     onChange={(e) => setQuantidade(Number(e.target.value))}
-                    className="w-full p-2 border border-[#7045FF] rounded mb-4 bg-[#080525] text-white placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#7045FF]"
+                    className="w-full p-2 border border-[#7045FF] rounded mb-4 bg-[#282262] text-white placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#7045FF]"
                 />
 
                 <p className="text-white font-semibold mb-4">
@@ -90,13 +90,13 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
                 <div className="flex justify-end gap-2">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-[#080525] border border-[#7045FF] text-[#7045FF] rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 bg-[#080525] border border-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Cancelar
                     </button>
                     <button
                         onClick={handleComprar}
-                        className="px-4 py-2 bg-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 bg-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Confirmar
                     </button>

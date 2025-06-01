@@ -34,13 +34,13 @@ export default function DeletarProdutoModal({ produto, isOpen, onClose }: Props)
                 <div className="flex justify-end gap-4">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 rounded border border-[#7045FF] bg-[#080525] text-white  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 rounded border border-[#7045FF] bg-[#080525] text-white  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Cancelar
                     </button>
                     <button
                         onClick={handleDelete}
-                        className="px-4 py-2 bg-red-700 text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 bg-red-700 text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Deletar
                     </button>

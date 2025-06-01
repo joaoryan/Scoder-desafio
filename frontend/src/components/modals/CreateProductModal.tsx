@@ -177,13 +177,13 @@ export default function ProdutoModal({ isOpen, onClose }: Props) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 rounded bg-[#080525] text-white hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                            className="px-4 py-2 rounded bg-[#080525] text-white hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 rounded bg-[#7045FF] text-white hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                            className="px-4 py-2 rounded bg-[#7045FF] text-white hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                         >
                             Enviar
                         </button>

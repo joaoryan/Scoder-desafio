@@ -5,6 +5,26 @@
   --foreground: #171717;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1b4b;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7045FF;
+  border-radius: 8px;
+  border: 2px solid #1e1b4b;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7045FF #1e1b4b;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -121,13 +121,13 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 rounded bg-[#080525] text-white  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 rounded bg-[#080525] text-white  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition"
+                        className="px-4 py-2 bg-[#7045FF] text-white rounded  hover:border-white border-2 border-transparent hover:shadow-lg transition cursor-pointer"
                     >
                         Salvar
                     </button>
