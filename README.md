@@ -1,29 +1,37 @@
 # SuriStore
 
-Plataforma web desenvolvida para o gerenciamento de produtos e simulação de vendas.
-Voce pode acessar o link (http://56.124.68.168:3000)
+**SuriStore** é uma plataforma web desenvolvida para gerenciamento de produtos e simulação de vendas, com foco em usabilidade, análise de dados e operações em tempo real.
 
-O sistema conta com duas páginas principais:
+- 🌐 Acesse o sistema: [http://56.124.68.168:3000](http://56.124.68.168:3000)  
+- 📚 Documentação da API (Swagger): [http://56.124.68.168:3333/docs](http://56.124.68.168:3333/docs)
+
+---
+
+## 📌 Funcionalidades Principais
 
 ### 📦 Gerenciamento de Produtos
-Permite ao usuário:
-- Adicionar, editar e excluir produtos;
-- Visualizar gráficos e indicadores analíticos;
-- Obter uma visão estratégica sobre o estoque e o desempenho das vendas.
 
-Essa seção foi projetada para auxiliar o cliente no controle eficaz da operação.
+Funcionalidade voltada à administração de inventário e análise de desempenho:
+
+- Cadastro, edição e exclusão de produtos;
+- Visualização de gráficos analíticos e indicadores estratégicos;
+- Acompanhamento de estoque e métricas de vendas em tempo real.
 
 ### 🛍️ Simulação de Vendas
-Interface simples e funcional que permite:
-- Simular a venda de produtos;
-- Selecionar a quantidade desejada;
-- Atualizar automaticamente o estoque com base nas vendas realizadas.
 
-# FRONTEND
+Interface simplificada para controle de vendas:
 
-Este repositório contém a interface web desenvolvida com **Next.js** e estilizada com **Tailwind CSS**, visando a integração em tempo real via WebSockets.
+- Seleção de produtos e definição de quantidades;
+- Atualização automática do estoque após cada simulação;
+- Feedback visual instantâneo sobre as operações realizadas.
 
-## 🛠 Tecnologias Utilizadas
+---
+
+# 🖥️ Frontend
+
+Interface desenvolvida com **Next.js**, **TypeScript** e **Tailwind CSS**, com integração em tempo real via **WebSockets**.
+
+## 🧰 Tecnologias
 
 - [React](https://react.dev/)
 - [Next.js](https://nextjs.org/)
@@ -31,95 +39,87 @@ Este repositório contém a interface web desenvolvida com **Next.js** e estiliz
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Socket.IO Client](https://socket.io/)
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura de Pastas
 
 ```bash
 frontend/
 ├── src/
-│   ├── app/
-│   ├── components/
-│   ├── img/
-│   ├── lib/
-│   ├── models/
-│   ├── services/
-│   ├── styles/
-│   ├── types/
-│   └── utils/
+│   ├── app/           # Páginas e rotas
+│   ├── components/    # Componentes reutilizáveis
+│   ├── img/           # Imagens estáticas
+│   ├── lib/           # Configurações e integrações
+│   ├── models/        # Tipos e modelos de dados
+│   ├── services/      # Serviços e chamadas de API
+│   ├── styles/        # Estilizações globais
+│   ├── types/         # Tipagens customizadas
+│   └── utils/         # Funções utilitárias
 ├── .env
 ├── .env.prod
 ├── .dockerignore
 ├── Dockerfile
 ├── tsconfig.json
 └── package.json
-```
 
-
-## ▶️ Como Rodar o Projeto
-
-1- Clone o repositório:
+# ▶️ Execução Local (Frontend)
 
 ```bash
+# 1. Clone o repositório
 git clone https://github.com/joaoryan/Scoder-desafio.git
-```
 
-2- Instale as dependências:
+# 2. Acesse a pasta do frontend
+cd frontend
 
-```bash
+# 3. Instale as dependências
 npm install
-```
 
-3- Rode o servidor de desenvolvimento:
-
-```bash
+# 4. Inicie o servidor de desenvolvimento
 npm run dev
+
+# 5. Acesse o sistema
+http://localhost:3000
 ```
 
-4- Abra [http://localhost:3000](http://localhost:3000) no seu navegador para visualizar o resultado.
+---
 
-# BACKEND
+# 🧪 Backend
 
-## 🛒 Frontend do SuriStore
+Aplicação backend desenvolvida em **Node.js** com **TypeScript**, estruturada em camadas e integrada com:
 
-Plataforma web desenvolvida para o gerenciamento de produtos e simulação de vendas.
+- Prisma ORM: acessa e manipula o banco de dados de forma fácil e tipada.
+- Redis: armazena dados em memória para cache ou comunicação rápida.
+- WebSockets: permite comunicação em tempo real entre servidor e cliente.
+- Zod: valida os dados enviados para a API antes de processá-los.
+- Swagger: gera documentação interativa da API para facilitar testes.
+- Jest: executa testes automatizados para garantir que tudo funcione corretamente.
 
-O sistema conta com duas páginas principais:
+📚 **Documentação Swagger**: [http://56.124.68.168:3333/docs](http://56.124.68.168:3333/docs)
 
-### 📦 Gerenciamento de Produtos
-Permite ao usuário:
-- Adicionar, editar e excluir produtos;
-- Visualizar gráficos e indicadores analíticos;
-- Obter uma visão estratégica sobre o estoque e o desempenho das vendas.
+---
 
-Essa seção foi projetada para auxiliar o cliente no controle eficaz da operação.
+## ⚙️ Tecnologias
 
-### 🛍️ Simulação de Vendas
-Interface simples e funcional que permite:
-- Simular a venda de produtos;
-- Selecionar a quantidade desejada;
-- Atualizar automaticamente o estoque com base nas vendas realizadas.
-
-Este repositório contém a interface web desenvolvida com **Next.js** e estilizada com **Tailwind CSS**, visando a integração em tempo real via WebSockets.
-
-## 🛠 Tecnologias Utilizadas
-
-- [React](https://react.dev/)
-- [Next.js](https://nextjs.org/)
+- [Node.js](https://nodejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Socket.IO Client](https://socket.io/)
+- [Prisma ORM](https://www.prisma.io/)
+- [Socket.IO](https://socket.io/)
+- [Zod](https://zod.dev/)
+- [Redis](https://redis.io/)
+- [Swagger](https://swagger.io/)
+- [Jest](https://jestjs.io/)
+---
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura de Pastas
 
 ```bash
 backend/
 ├── src/
-│   ├── data/
-│   ├── domain/
-│   ├── infra/
-│   ├── main/
-│   ├── presentation/
-│   └── utils/
-├── prisma/
+│   ├── data/          # Repositórios e acesso a dados
+│   ├── domain/        # Entidades e interfaces de domínio
+│   ├── infra/         # Conexões externas (DB, Redis)
+│   ├── main/          # Arquivo principal da aplicação e rotas
+│   ├── presentation/  # Controllers
+│   └── utils/         # Helpers e funções auxiliares
+├── prisma/            # Migrações e schema do banco de dados
 ├── .env
 ├── .env.prod
 ├── .dockerignore
@@ -128,30 +128,40 @@ backend/
 └── package.json
 ```
 
+---
 
-## ▶️ Como Rodar o Projeto
-
-1- Clone o repositório:
+# ▶️ Execução Local (Backend)
 
 ```bash
+# 1. Clone o repositório
 git clone https://github.com/joaoryan/Scoder-desafio.git
-```
 
-2- Instale as dependências:
+# 2. Acesse a pasta do backend
+cd backend
 
-```bash
+# 3. Instale as dependências
 npm install
+
+# 4. Inicie o servidor
+npm run dev
+
+# 5. A API estará disponível em:
+http://localhost:5050
 ```
 
-3- Rode o servidor de desenvolvimento:
+---
+
+## ✅ Executar Testes Automatizados
 
 ```bash
-npm run dev
+npm run test
 ```
 
-4- Api está rodando no [http://localhost:5050](http://localhost:5050)
+---
 
-## 🧠 Autoria e Contato
+## 👨‍💻 Autor
 
-Desenvolvido por [João Ryan dos Santos](https://github.com/joaoryan)
-🔗 LinkedIn: [João Ryan dos Santos](https://www.linkedin.com/in/jo%C3%A3o-ryan-santos-a196a7207/)
+**João Ryan dos Santos**  
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/joaoryan)  
+- 🧑‍💻 [GitHub](https://github.com/joaoryan)
