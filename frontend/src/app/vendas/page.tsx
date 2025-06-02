@@ -20,7 +20,7 @@ export default function PaginaDeVendas() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        let socket = getSocket();
+        const socket = getSocket();
 
         const carregarProdutos = async () => {
             try {
@@ -40,7 +40,6 @@ export default function PaginaDeVendas() {
         socket.on("products:update", handleProductsUpdate);
         carregarProdutos();
 
-        // Cleanup na desmontagem do componente
         return () => {
             socket.off("products:update", handleProductsUpdate);
         };

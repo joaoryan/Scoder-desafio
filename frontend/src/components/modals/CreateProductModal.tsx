@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { ProductsModel } from "@/models/produtcs";
 import { produtoService } from "@/services/produtoService";
+
 interface Props {
     isOpen: boolean;
     onClose: () => void;
@@ -76,6 +77,7 @@ export default function ProdutoModal({ isOpen, onClose }: Props) {
                 stock: false,
             });
         } catch (error) {
+            console.error(error)
             setLoading(false)
             toast.error("Erro ao cadastrar produto. Tente novamente.");
         }

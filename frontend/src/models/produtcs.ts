@@ -9,3 +9,15 @@ export type ProductsModel = {
   creationDate?: Date;
   lastupdateDate?: Date;
 }
+
+export type UpdateProductsModel = {
+  id: number,
+  productsData: {
+    name: string,
+    price: string,
+    category: string,
+    description: string,
+    stock: number,
+    sales?: number
+  },
+}

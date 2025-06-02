@@ -37,7 +37,7 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
 
         try {
             await produtoService.updateProduct({
-                id: produto?.id,
+                id: produto?.id ?? 0,
                 productsData: {
                     ...produto,
                     sales: novaQuantidadeVendida,

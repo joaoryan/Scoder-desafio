@@ -37,7 +37,7 @@ export default function EditarProdutoModal({ produto, isOpen, onClose }: Props) 
         e.preventDefault();
         try {
             await produtoService.updateProduct({
-                id: produto?.id,
+                id: produto?.id ?? 0,
                 productsData: {
                     name: nome,
                     price: preco.replace(",", "."),

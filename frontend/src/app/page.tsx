@@ -12,13 +12,6 @@ import ProductAnalytics from "@/components/home/ProductAnalytics";
 import ProductSummaryCards from "@/components/home/ProductSummaryCards";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
-interface CategoriaResumo {
-  categoria: string;
-  quantidade: number;
-}
-
-
-
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [produtos, setProdutos] = useState<ProductsModel[]>([]);
@@ -27,7 +20,7 @@ export default function Home() {
   const [produtoDeletar, setProdutoDeletar] = useState<ProductsModel | null>(null);
 
   useEffect(() => {
-    let socket = getSocket();
+    const socket = getSocket();
 
     const carregarProdutos = async () => {
       try {
@@ -47,7 +40,6 @@ export default function Home() {
     socket.on("products:update", handleProductsUpdate);
     carregarProdutos();
 
-    // Cleanup na desmontagem do componente
     return () => {
       socket.off("products:update", handleProductsUpdate);
     };
