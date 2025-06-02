@@ -49,7 +49,6 @@ export default function PaginaDeVendas() {
 
     }, [setProdutos]);
 
-    // Filtrar e agrupar produtos por categoria
     const produtosFiltrados = produtos.filter((produto) => {
         const termo = termoBusca.toLowerCase();
         return (
@@ -69,7 +68,6 @@ export default function PaginaDeVendas() {
         <div className="p-4 bg-[#282262] text-white min-h-screen">
             <h1 className="text-2xl font-bold mr-3">Vendas</h1>
 
-            {/* Sobre a loja SuriStore */}
             <div className="flex flex-col md:flex-row md:items-start bg-[#3B328E] px-6 pt-6 pb-0 rounded-xl mb-10 gap-6">
                 <div className="md:flex-1">
                     <h2 className="text-xl font-semibold mb-2">Sobre a SuriStore</h2>
@@ -96,7 +94,6 @@ export default function PaginaDeVendas() {
             )
                 :
                 <>
-                    {/* Campo de busca */}
                     < div className="my-4 relative w-full md:w-1/2">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
                         <input
@@ -108,7 +105,6 @@ export default function PaginaDeVendas() {
                         />
                     </div>
 
-                    {/* Produtos agrupados por categoria */}
                     {
                         Object.entries(produtosPorCategoria).map(([categoria, itens]) => (
                             <div key={categoria} className="mb-8">
@@ -164,8 +160,6 @@ export default function PaginaDeVendas() {
                 </>
             }
 
-
-            {/* Modal de compra */}
             <CompraModal
                 produto={produtoSelecionado}
                 isOpen={modalAberto}

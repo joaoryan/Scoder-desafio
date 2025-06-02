@@ -1,7 +1,7 @@
 import type { AddProducts } from '../../../domain/usecases';
 import type { AddProductsRepository } from '../../protocols';
 import type { ProductsModel } from '../../../domain/models/products';
-import { Decimal } from '../../../generated/prisma/runtime/library';
+import { Decimal } from '@prisma/client/runtime/library';
 
 export class DbAddProducts implements AddProducts {
   private readonly addProductsRepository: AddProductsRepository;

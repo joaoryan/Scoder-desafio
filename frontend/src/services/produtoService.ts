@@ -1,8 +1,7 @@
 import { ProductsModel } from "@/models/produtcs";
 import axios from "axios";
 
-
-const API_URL = "http://localhost:5050";
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 export const produtoService = {
     async loadProduct(): Promise<ProductsModel[]> {

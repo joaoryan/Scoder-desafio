@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx env-cmd -f ./env/.env.development node dist/main/server.js",
-    "build": "rimraf dist && tsc",
-    "dev": "npx env-cmd -f .env ts-node-dev --respawn src/main/server.ts",
+    "prisma:generate": "prisma generate",
+    "clean": "rimraf dist",
+    "build": "npm run prisma:generate && npm run clean && tsc",
+    "start:prod": "npm run prisma:generate && node dist/main/server.js",
+    "start": "npx env-cmd -f .env node dist/main/server.js",
+    "dev": " npm run prisma:generate && npx env-cmd -f .env ts-node-dev --respawn src/main/server.ts ",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
-    "homol": "npx env-cmd -f ./env/.env.homol node dist/main/server-homol.js",
-    "deploy": "npx env-cmd -f ./env/.env.prod node dist/main/server-prod.js"
+    "deploy": "npm run prisma:generate && npx env-cmd -f .env.prod node dist/main/server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
   "dependencies": {
     "@nestjs/platform-socket.io": "^11.1.2",
     "@nestjs/websockets": "^11.1.2",
+    "@prisma/client": "^6.8.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

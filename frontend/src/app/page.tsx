@@ -7,9 +7,9 @@ import EditarProdutoModal from "@/components/modals/EditarProdutoModal";
 import DeletarProdutoModal from "@/components/modals/DeletarProdutoModal";
 import { ProductsModel } from "@/models/produtcs";
 import { getSocket } from "@/lib/socket";
-import ProductTable from "@/components/shared/ProductTable";
-import ProductAnalytics from "@/components/shared/ProductAnalytics";
-import ProductSummaryCards from "@/components/shared/ProductSummaryCards";
+import ProductTable from "@/components/home/ProductTable";
+import ProductAnalytics from "@/components/home/ProductAnalytics";
+import ProductSummaryCards from "@/components/home/ProductSummaryCards";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 interface CategoriaResumo {

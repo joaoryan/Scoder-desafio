@@ -21,6 +21,6 @@ io.on('connection', (socket) => {
 
 export { io };
 
-httpServer.listen(env.PORT, () => {
-  console.log(`Server running in development mode at http://localhost:${env.PORT}`);
+httpServer.listen(env.PORT, env.HOST, () => {
+  console.log(`Server running at http://${env.HOST}:${env.PORT}`);
 });

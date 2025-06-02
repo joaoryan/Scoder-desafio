@@ -5,7 +5,10 @@
     "target": "es2019",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    // Adicione essas duas para evitar problemas com importações
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "include": [
     "src"

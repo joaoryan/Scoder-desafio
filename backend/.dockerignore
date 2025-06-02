@@ -1,0 +1,7 @@
+# Ignorar dependências locais (serão instaladas dentro do container)
+node_modules
+dist
+
+# Ignorar arquivos de controle de versão
+.git
+.gitignore
