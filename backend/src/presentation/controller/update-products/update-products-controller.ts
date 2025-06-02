@@ -20,7 +20,7 @@ export class UpdateProductsController implements Controller {
       if (!requestResult || requestResult === null) {
         return responseError(400, 'Error update products');
       };
-
+      console.log(requestResult)
       return ok(requestResult);
     } catch (error: any) {
       console.log(error)

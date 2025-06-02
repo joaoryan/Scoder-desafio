@@ -26,6 +26,8 @@ export default function PaginaDeVendas() {
                 setProdutos(result);
             } catch (error) {
                 console.error("Erro ao carregar produtos:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -42,7 +44,6 @@ export default function PaginaDeVendas() {
         };
 
         carregarProdutos();
-        setLoading(false)
         const cleanup = setupSocketListeners();
 
         return cleanup;

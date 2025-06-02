@@ -34,9 +34,10 @@ export default function ProductAnalytics({ produtos }: ProductAnalyticsProps) {
     return (
         <>
             <section className="grid md:grid-cols-2 gap-6 mb-10">
-                <div className="bg-[#3B328E] shadow-md rounded-xl p-6">
-                    <h2 className=" text-xl font-semibold mb-4">Vendas por Produto</h2>
-                    <ResponsiveContainer width="100%" height={300}>
+                {/* Gráfico de Vendas por Produto */}
+                <div className="bg-[#3B328E] shadow-md rounded-xl p-6 h-[460px]">
+                    <h2 className="text-xl font-semibold mb-4">Vendas por Produto</h2>
+                    <ResponsiveContainer width="100%" height={380}>
                         <PieChart>
                             <Pie
                                 data={produtos}
@@ -44,7 +45,7 @@ export default function ProductAnalytics({ produtos }: ProductAnalyticsProps) {
                                 nameKey="name"
                                 cx="50%"
                                 cy="50%"
-                                outerRadius={100}
+                                outerRadius={120}
                                 fill="#8884d8"
                                 label
                             >
@@ -53,38 +54,76 @@ export default function ProductAnalytics({ produtos }: ProductAnalyticsProps) {
                                 ))}
                             </Pie>
                             <Tooltip />
+                            <Legend
+                                layout="horizontal"
+                                verticalAlign="bottom"
+                                align="center"
+                                wrapperStyle={{ fontSize: "12px" }}
+                            />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
 
-                <div className="bg-[#3B328E] shadow-md rounded-xl p-6">
+                {/* Gráfico de Vendas por Categoria */}
+                <div className="bg-[#3B328E] shadow-md rounded-xl p-6 h-[460px]">
                     <h2 className="text-xl font-semibold mb-4">Vendas por Categoria</h2>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={dadosVendasCategoria}>
+                    <ResponsiveContainer width="100%" height={380}>
+                        <BarChart
+                            data={dadosVendasCategoria}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
+                        >
                             <CartesianGrid strokeDasharray="3 3" stroke="#D3D3D3" />
-                            <XAxis dataKey="categoria" stroke="#FFFFFF" />
+                            <XAxis
+                                dataKey="categoria"
+                                stroke="#FFFFFF"
+                                angle={-30}
+                                textAnchor="end"
+                                interval={0}
+                                tick={{ fontSize: 12 }}
+                            />
                             <YAxis stroke="#FFFFFF" />
                             <Tooltip />
-                            <Legend />
+                            <Legend
+                                verticalAlign="top"
+                                align="center"
+                                wrapperStyle={{ marginBottom: "20px", fontSize: "12px" }}
+                            />
                             <Bar dataKey="total" fill="#7045FF" name="Total de Vendas" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
             </section>
 
-            <section className="bg-[#3B328E] shadow-md rounded-xl p-6 mt-10">
+            {/* Gráfico de Estoque */}
+            <section className="bg-[#3B328E] shadow-md rounded-xl p-6 mt-10 overflow-x-auto h-[500px]">
                 <h2 className="text-xl font-semibold mb-4">Estoque</h2>
-                <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={produtos}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#D3D3D3" />
-                        <XAxis dataKey="name" stroke="#FFFFFF" />
-                        <YAxis stroke="#FFFFFF" />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="sales" fill="#8884d8" name="Unidades vendidas até o momento" />
-                        <Bar dataKey="stock" fill="#00C49F" name="Quantidade disponível em estoque" />
-                    </BarChart>
-                </ResponsiveContainer>
+                <div className="min-w-[800px]">
+                    <ResponsiveContainer width="100%" height={400}>
+                        <BarChart
+                            data={produtos}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" stroke="#D3D3D3" />
+                            <XAxis
+                                dataKey="name"
+                                stroke="#FFFFFF"
+                                angle={-45}
+                                textAnchor="end"
+                                interval={0}
+                                tick={{ fontSize: 12 }}
+                            />
+                            <YAxis stroke="#FFFFFF" />
+                            <Tooltip />
+                            <Legend
+                                verticalAlign="top"
+                                align="center"
+                                wrapperStyle={{ marginBottom: "20px", fontSize: "12px" }}
+                            />
+                            <Bar dataKey="sales" fill="#8884d8" name="Unidades vendidas até o momento" />
+                            <Bar dataKey="stock" fill="#00C49F" name="Quantidade disponível em estoque" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </section>
         </>
     );

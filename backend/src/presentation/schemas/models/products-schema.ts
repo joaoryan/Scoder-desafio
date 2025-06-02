@@ -3,9 +3,7 @@ import { z } from "zod";
 export const AddProductsSchema = z.object({
   id: z.number().optional(),
   name: z.string(),
-  price: z
-    .string(),
-  category: z.string(),
+  price: z.any(),
   description: z.string().optional().nullable(),
   sales: z.number().optional().default(0),
   stock: z.number().optional().default(0),
