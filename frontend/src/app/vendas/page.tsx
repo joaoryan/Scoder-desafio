@@ -121,7 +121,7 @@ export default function PaginaDeVendas() {
                                                     </p>
                                                 )}
                                                 <p className="text-[#FFFFFF] mb-1">
-                                                    Preço: R$ {formatCurrencyBR(produto.price)}
+                                                    Preço: {formatCurrencyBR(produto.price)}
                                                 </p>
                                                 <p className={`mb-4 text-sm ${temEstoque ? 'text-[#FFFFFF]' : 'text-[#AAAAAA]'}`}>
                                                     Estoque: {produto.stock ?? 0}
