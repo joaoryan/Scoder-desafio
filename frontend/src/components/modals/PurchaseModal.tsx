@@ -60,11 +60,11 @@ export default function CompraModal({ produto, isOpen, onClose }: Props) {
             onClick={onClose}
         >
             <div
-                className="bg-[#3B328E] p-6 rounded-xl shadow-lg max-h-[294px] w-full max-w-sm text-white"
+                className="bg-[#3B328E] p-6 rounded-xl shadow-lg min-h-[300px] w-full max-w-sm text-white"
                 onClick={(e) => e.stopPropagation()}
             >
                 {loading ? (
-                    <div className="w-full  min-h-[294px] h-full flex items-center justify-center">
+                    <div className="w-full  min-h-[300px] h-full flex items-center justify-center">
                         <LoadingSpinner size={60} />
                     </div>
                 )
