@@ -20,6 +20,8 @@ export default function PaginaDeVendas() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let socket = getSocket();
+
         const carregarProdutos = async () => {
             try {
                 const result = await produtoService.loadProduct();
@@ -31,24 +33,18 @@ export default function PaginaDeVendas() {
             }
         };
 
-        const setupSocketListeners = () => {
-            const socket = getSocket();
-
-            socket.on("products:update", (data: ProductsModel[]) => {
-                setProdutos(data);
-            });
-
-            return () => {
-                socket.off("products:update");
-            };
+        const handleProductsUpdate = (data: ProductsModel[]) => {
+            setProdutos(data);
         };
 
+        socket.on("products:update", handleProductsUpdate);
         carregarProdutos();
-        const cleanup = setupSocketListeners();
 
-        return cleanup;
-
-    }, [setProdutos]);
+        // Cleanup na desmontagem do componente
+        return () => {
+            socket.off("products:update", handleProductsUpdate);
+        };
+    }, []);
 
     const produtosFiltrados = produtos.filter((produto) => {
         const termo = termoBusca.toLowerCase();

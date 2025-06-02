@@ -1,9 +1,10 @@
 import { z } from "zod";
 
-export const AddProductsSchema = z.object({
+export const ProductsSchema = z.object({
   id: z.number().optional(),
   name: z.string(),
   price: z.any(),
+  category: z.string(),
   description: z.string().optional().nullable(),
   sales: z.number().optional().default(0),
   stock: z.number().optional().default(0),

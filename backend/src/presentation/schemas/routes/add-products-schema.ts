@@ -1,10 +1,9 @@
-import { z } from 'zod';
-import { ErrorSchema, AddProductsSchema } from '../models';
+import { ErrorSchema, ProductsSchema } from '../models';
 
 export const addProductsSchema = {
-  body: AddProductsSchema,
+  body: ProductsSchema,
   response: {
-    200: z.object({}),
+    200: ProductsSchema,
     400: ErrorSchema,
     403: ErrorSchema,
     500: ErrorSchema,

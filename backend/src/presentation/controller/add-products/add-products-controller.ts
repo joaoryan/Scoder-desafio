@@ -20,7 +20,7 @@ export class AddProductsController implements Controller {
         return responseError(400, 'Error adding products');
       };
 
-      return ok({});
+      return ok(requestResult);
     } catch (error: any) {
       console.log(error)
       return serverError(new ServerError(error.stack));

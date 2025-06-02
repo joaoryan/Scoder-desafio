@@ -27,6 +27,8 @@ export default function Home() {
   const [produtoDeletar, setProdutoDeletar] = useState<ProductsModel | null>(null);
 
   useEffect(() => {
+    let socket = getSocket();
+
     const carregarProdutos = async () => {
       try {
         const result = await produtoService.loadProduct();
@@ -38,23 +40,19 @@ export default function Home() {
       }
     };
 
-    const setupSocketListeners = () => {
-      const socket = getSocket();
-
-      socket.on("products:update", (data: ProductsModel[]) => {
-        setProdutos(data);
-      });
-
-      return () => {
-        socket.off("products:update");
-      };
+    const handleProductsUpdate = (data: ProductsModel[]) => {
+      setProdutos(data);
     };
 
+    socket.on("products:update", handleProductsUpdate);
     carregarProdutos();
-    const cleanup = setupSocketListeners();
 
-    return cleanup;
-  }, [setProdutos, setLoading]);
+    // Cleanup na desmontagem do componente
+    return () => {
+      socket.off("products:update", handleProductsUpdate);
+    };
+  }, []);
+
 
   return (
     <main className="min-h-screen bg-[#282262] p-4 text-white">
